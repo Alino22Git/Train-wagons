@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1667344422 source:c:\users\hajra\desktop\zwischentest2_train\main.c
+	<stdio.h>
+	<stdlib.h>
+

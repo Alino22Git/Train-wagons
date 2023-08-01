@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+enum type {
+    passenger,
+    sleeper,
+    diner
+};
+
+struct carriage {
+    enum type type;
+    int capacity;
+};
+
+struct train {
+    struct carriage carriages[10];
+    int length;
+};
+
+void printCarriage(struct carriage c);
+void printTrain(struct train* t);
+char getMenu();
+struct carriage getCarriage();
+int getPosition(int len);
+int insertCarriage(struct train* t, int pos, struct carriage car);
+int sumCapacity(struct train* t, enum type type);
+void printTrainStats(struct train* t);
+
+int main() {
+    printf("Hello world!\n");
+    return 0;
+}
+
+void printCarriage(struct carriage c) {
+    printf("[%d:%d]",c.type, c.capacity); //Ausgabe als P, S oder D!
+}
+
+void printTrain(struct train* t) {
+    for(int i=0; i< t->length; i++) {
+        printf("\nTrain %d:", i);
+        printCarriage(t->carriages[i]);
+        if(i!=t->length-1) {
+            printf("-");
+        }
+    }
+}
+char getMenu() {
+    char ch;
+    printf("\nChoose Action: print train (p), new carriage (n), print stats (s) or exit (x): ");
+    do {
+        scanf(" %c",&ch);
+        if(ch!='p' && ch!='s' && ch!='n' && ch!='x') {
+            ch='f';
+            printf("\nInput invalid! Try again: ");
+        }
+    } while(ch!='f');
+    return ch;
+}
+
+struct carriage getCarriage() {
+    char ch;
+    int cap=0;
+    struct carriage car;
+    printf("\nChoose type of carriage: passenger (p), sleeper (s) or diner (d): ");
+    do {
+        scanf(" %ch",&ch);
+        if(ch!='p' && ch!='s' && ch!='d') {
+            ch='f';
+            printf("\nInput invalid! Try again:");
+        } else {
+            if(ch=='p') {
+                car.type=passenger;
+            } else if(ch == 's') {
+                car.type=sleeper;
+            } else {
+                car.type=diner;
+            }
+            printf("\nChoose capacity (20 - 130): ");
+            do {
+                scanf("%d",&cap);
+                if(cap<0 || cap>130) {
+                    cap=0;
+                    printf("\nInput invalid! Try again: ");
+                }
+            } while(cap==0);
+            car.capacity=cap;
+        }
+    } while(ch=='f');
+    return car;
+}
+
+int getPosition(int len) {
+    int pos=0;
+    printf("Choose position for the new carriage (0-%d)",len);
+    do {
+        scanf("%d",&pos);
+        if(pos>=len && pos<0) {
+            printf("\nInput invalid! Try again:");
+            pos=0;
+        }
+    } while(pos==0);
+    return pos;
+}
+
+int insertCarriage(struct train* t, int pos, struct carriage car){
+}
